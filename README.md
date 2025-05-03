@@ -1,89 +1,59 @@
-# Flappy Bird AI with Reinforcement Learning
+# Flappy Bird Reinforcement Learning Project
 
-This project implements an AI agent that learns to play the Flappy Bird game using the Q-learning reinforcement learning algorithm. The AI is trained by interacting with the game environment, receiving rewards for its actions, and updating its knowledge (stored in a Q-table) to make better decisions over time.
+This project implements a **Flappy Bird** game where an AI agent learns to play the game using **Q-learning** (a reinforcement learning algorithm). The agent learns by interacting with the environment and receiving rewards based on its actions, gradually improving its gameplay over generations.
+
+The project consists of several components:
+
+* **Reinforcement Learning Agent**: The agent uses Q-learning to make decisions.
+* **Game Environment**: The Flappy Bird game environment where the agent interacts.
+* **User Interface**: A graphical user interface for rendering the game and displaying relevant information.
 
 ## Features
 
-* **Q-Learning Implementation:** Utilizes the Q-learning algorithm to train the AI agent.
-* **Epsilon-Greedy Exploration:** Balances exploration of new actions with exploitation of learned knowledge using an epsilon-greedy policy.
-* **State Discretization:** Discretizes the continuous game state (bird position, pipe position) into a finite number of bins for effective learning.
-* **Action Space:** The AI can choose between two actions: do nothing or jump (flap).
-* **Training Mode:** Allows the AI to learn from scratch or continue learning.
-* **Playing Mode:** Enables the user to watch a pre-trained AI play the game using its learned policy.
-* **Save and Load Q-Tables:** The trained Q-table can be saved to a file and loaded later for continued training or gameplay.
-* **Start Screen Options:** Provides a user-friendly interface to choose between training a new AI, watching a trained AI play, or loading a saved Q-table.
-* **Q-Table Selection Screen:** Allows the user to easily select a specific Q-table file to load from a directory.
-* **Real-time Game Visualization:** Uses Pygame to display the Flappy Bird game environment and the AI's actions.
-* **Learning Rate and Epsilon Decay:** Gradually reduces the learning rate and exploration rate during training to promote convergence to an optimal policy.
-* **Score and Generation Tracking:** Displays the current score and the training generation number.
-* **Best Score Tracking:** Keeps track of the highest score achieved during training.
-* **Training Parameter Display:** Shows the current epsilon and learning rate during training.
+* **Q-Learning Agent**: The agent learns to play the game through repeated interactions and updates its behavior using a Q-table.
+* **Environment Simulation**: Simulates the Flappy Bird game, including movement of pipes, scoring, and collisions.
+* **Graphical UI**: Displays the game window with bird movement, pipes, score, and other UI elements.
+* **Multiple Generations**: The agent plays multiple generations, improving over time.
 
-## Prerequisites
+## Setup
 
-* **Python 3.x**
-* **Pygame** (`pip install pygame`)
-* **NumPy** (`pip install numpy`)
-* **Pickle** (standard Python library, no installation needed)
+To run the project, follow these steps:
 
-## Getting Started
+### Prerequisites:
 
-1.  **Clone the repository** (or download the files).
-2.  **Ensure you have the required libraries installed** (see Prerequisites).
-3.  **Place the game assets** (`base.png`, `pipe.png`, `bg.png`, `bird1.png`) in the same directory as the Python script. You can usually find these assets in standard Flappy Bird game resources online.
-4.  **Run the script:** `python your_script_name.py` (replace `your_script_name.py` with the actual name of the Python file).
+* Python 3.x
+* Pygame library
 
-## Usage
+### Installation:
 
-Upon running the script, you will see a start screen with the following options:
+1. Clone this repository:
 
-* **Train New AI:** Starts the training process from scratch. The AI will explore the game environment and learn through the Q-learning algorithm.
-* **Watch AI Play:** Allows you to load a pre-trained Q-table and watch the AI play the game based on its learned policy. You will be presented with a screen to select a `.pkl` file from the `q_tables` directory.
-* **Load Q-Table:** Directly opens the Q-table selection screen to load a saved Q-table for either watching the AI play or potentially continuing training (though the current implementation restarts the game after loading in "play" mode).
+   ```bash
+   git clone https://github.com/omarhamed888/Flappy_Bird.git
+   cd flappy-bird-rl
+   ```
 
-### Training the AI
+2. Install dependencies:
 
-* Select "Train New AI" from the start screen.
-* The game will begin, and the AI will start playing (and likely crashing initially).
-* Observe the score and the generation number. The AI will gradually improve its performance over many generations.
-* The Q-table is saved periodically (every `SAVE_INTERVAL` generations) to the `q_tables` directory.
-* You can stop the training at any time by pressing the **Escape** key. The current Q-table will be saved upon quitting.
+   ```bash
+   pip install pygame numpy
+   ```
 
-### Watching a Trained AI Play
+3. Run the game:
 
-1.  Select "Watch AI Play" from the start screen.
-2.  A screen will appear listing the saved Q-table files in the `q_tables` directory. Use the **Up** and **Down** arrow keys to select a Q-table and press **Enter** to load it. Press **Escape** to cancel and return to the start screen.
-3.  Once a Q-table is loaded, the AI will play the game using its learned strategy.
-4.  Press the **Escape** key to stop watching.
+   ```bash
+   python main.py
+   ```
 
-### Loading a Q-Table
+### Saved Q-Table:
 
-* Selecting "Load Q-Table" from the start screen will take you to the Q-table selection screen, similar to the "Watch AI Play" option. After loading, the script currently proceeds as if you selected "Watch AI Play".
+The Q-table is saved in the file `q_table.npy` after each generation. This file can be loaded to resume training or to evaluate the agent's learned behavior.
 
-## Configuration
+## Documentation
 
-The following parameters can be adjusted within the Python script to influence the AI's learning process and the game environment:
+The project's documentation can be found in the `docs` folder. This includes detailed information about each code file and its components. To access the documentation, refer to the following files:
 
-* **Game Constants:**
-    * `SW`: Screen width.
-    * `SH`: Screen height.
-    * `BASEY`: Height of the ground.
-    * `FPS`: Frames per second.
-* **Learning Parameters:**
-    * `INITIAL_LEARNING_RATE`: Initial value for the learning rate ($\alpha$).
-    * `LEARNING_RATE_DECAY`: Rate at which the learning rate decreases.
-    * `MIN_LEARNING_RATE`: Minimum value for the learning rate.
-    * `DISCOUNT_FACTOR`: Discount factor ($\gamma$) for future rewards.
-    * `INITIAL_EPSILON`: Initial value for the exploration rate ($\epsilon$).
-    * `EPSILON_DECAY`: Rate at which the exploration rate decreases.
-    * `MIN_EPSILON`: Minimum value for the exploration rate.
-* **State Dimensions:**
-    * `X_BINS`: Number of discrete bins for the horizontal distance to the next pipe.
-    * `Y_BINS`: Number of discrete bins for the vertical distance to the next bottom pipe.
-    * `ACTIONS`: Number of possible actions (should be 2 in this case).
-* **Saving Interval:**
-    * `SAVE_INTERVAL`: Number of generations after which the Q-table is saved.
-
-Adjusting these parameters can significantly affect the AI's learning speed and the quality of the learned policy.
-
-## File Structure
+* [**`docs/algorithm.md`**](docs/algorithm.md): Explanation of the Q-learning agent.
+* [**`docs/main.md`**](docs/main.md): Overview of the main game loop.
+* [**`docs/display.md`**](docs/display.md): Information about the graphical rendering and UI elements.
+* [**`docs/environment.md`**](docs/environment.md): Description of the Flappy Bird environment for reinforcement learning.
